@@ -5,6 +5,7 @@ import (
 	pb "matrimonial-service/internal/api/proto" // Your generated proto package
 	"matrimonial-service/internal/domain/model"
 	"matrimonial-service/internal/domain/repository"
+
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -63,14 +64,14 @@ func (h *LocationHandler) GetDistrictsByDivision(ctx context.Context, req *pb.Ge
 func (h *LocationHandler) GetUpazilasByDistrict(ctx context.Context, req *pb.GetUpazilasByDistrictRequest) (*pb.GetUpazilasByDistrictResponse, error) {
 	var upazilas []*model.Upazila
 	var err error
-	
+
 	// If search parameter is provided, use search
 	if req.GetSearch() != "" {
 		upazilas, err = h.locRepo.SearchUpazilasByDistrict(ctx, req.GetDistrictId(), req.GetSearch())
 	} else {
 		upazilas, err = h.locRepo.GetUpazilasByDistrict(ctx, req.GetDistrictId())
 	}
-	
+
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "failed to get upazilas: %v", err)
 	}
