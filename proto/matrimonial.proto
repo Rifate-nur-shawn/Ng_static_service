@@ -46,10 +46,19 @@ message GetDistrictsByDivisionResponse {
 
 message GetUpazilasByDistrictRequest {
   int64 district_id = 1;
+  string search = 2; // Optional: filter by name
 }
 
 message GetUpazilasByDistrictResponse {
   repeated Upazila upazilas = 1;
+}
+
+message GetUpazilaByIdRequest {
+  int64 upazila_id = 1;
+}
+
+message GetUpazilaByIdResponse {
+  Upazila upazila = 1;
 }
 
 service LocationService {
@@ -66,6 +75,11 @@ service LocationService {
   rpc GetUpazilasByDistrict(GetUpazilasByDistrictRequest) returns (GetUpazilasByDistrictResponse) {
     option (google.api.http) = {
       get: "/api/v1/locations/districts/{district_id}/upazilas"
+    };
+  }
+  rpc GetUpazilaById(GetUpazilaByIdRequest) returns (GetUpazilaByIdResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/locations/upazilas/{upazila_id}"
     };
   }
 }

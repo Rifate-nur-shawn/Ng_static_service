@@ -91,3 +91,47 @@ func (r *pgLocationRepository) GetUpazilasByDistrict(ctx context.Context, distri
 
 	return upazilas, nil
 }
+
+// GetUpazilaById fetches a single upazila by ID
+func (r *pgLocationRepository) GetUpazilaById(ctx context.Context, upazilaID int64) (*model.Upazila, error) {
+	query := `
+		SELECT id, district_id, name_en, COALESCE(name_bn, '')
+		FROM upazilas
+		WHERE id = $1
+	`
+
+	var u model.Upazila
+	err := r.db.QueryRowContext(ctx, query, upazilaID).Scan(&u.ID, &u.DistrictID, &u.NameEn, &u.NameBn)
+	if err != nil {
+		return nil, err
+	}
+
+	return &u, nil
+}
+
+// SearchUpazilasByDistrict searches upazilas by name in a district
+func (r *pgLocationRepository) SearchUpazilasByDistrict(ctx context.Context, districtID int64, search string) ([]*model.Upazila, error) {
+	query := `
+		SELECT id, district_id, name_en, COALESCE(name_bn, '')
+		FROM upazilas
+		WHERE district_id = $1 AND LOWER(name_en) LIKE LOWER($2)
+		ORDER BY name_en
+	`
+
+	rows, err := r.db.QueryContext(ctx, query, districtID, "%"+search+"%")
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var upazilas []*model.Upazila
+	for rows.Next() {
+		var u model.Upazila
+		if err := rows.Scan(&u.ID, &u.DistrictID, &u.NameEn, &u.NameBn); err != nil {
+			return nil, err
+		}
+		upazilas = append(upazilas, &u)
+	}
+
+	return upazilas, nil
+}

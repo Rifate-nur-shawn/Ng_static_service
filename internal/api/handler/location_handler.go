@@ -3,6 +3,7 @@ package handler
 import (
 	"context"
 	pb "matrimonial-service/internal/api/proto" // Your generated proto package
+	"matrimonial-service/internal/domain/model"
 	"matrimonial-service/internal/domain/repository"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -60,7 +61,16 @@ func (h *LocationHandler) GetDistrictsByDivision(ctx context.Context, req *pb.Ge
 
 // GetUpazilasByDistrict implementation
 func (h *LocationHandler) GetUpazilasByDistrict(ctx context.Context, req *pb.GetUpazilasByDistrictRequest) (*pb.GetUpazilasByDistrictResponse, error) {
-	upazilas, err := h.locRepo.GetUpazilasByDistrict(ctx, req.GetDistrictId())
+	var upazilas []*model.Upazila
+	var err error
+	
+	// If search parameter is provided, use search
+	if req.GetSearch() != "" {
+		upazilas, err = h.locRepo.SearchUpazilasByDistrict(ctx, req.GetDistrictId(), req.GetSearch())
+	} else {
+		upazilas, err = h.locRepo.GetUpazilasByDistrict(ctx, req.GetDistrictId())
+	}
+	
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "failed to get upazilas: %v", err)
 	}
@@ -76,4 +86,21 @@ func (h *LocationHandler) GetUpazilasByDistrict(ctx context.Context, req *pb.Get
 	}
 
 	return &pb.GetUpazilasByDistrictResponse{Upazilas: pbUpazilas}, nil
+}
+
+// GetUpazilaById implementation
+func (h *LocationHandler) GetUpazilaById(ctx context.Context, req *pb.GetUpazilaByIdRequest) (*pb.GetUpazilaByIdResponse, error) {
+	upazila, err := h.locRepo.GetUpazilaById(ctx, req.GetUpazilaId())
+	if err != nil {
+		return nil, status.Errorf(codes.NotFound, "upazila not found: %v", err)
+	}
+
+	pbUpazila := &pb.Upazila{
+		Id:         upazila.ID,
+		DistrictId: upazila.DistrictID,
+		NameEn:     upazila.NameEn,
+		NameBn:     upazila.NameBn,
+	}
+
+	return &pb.GetUpazilaByIdResponse{Upazila: pbUpazila}, nil
 }

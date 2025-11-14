@@ -25,6 +25,7 @@ const (
 	LocationService_GetDivisions_FullMethodName           = "/proto.LocationService/GetDivisions"
 	LocationService_GetDistrictsByDivision_FullMethodName = "/proto.LocationService/GetDistrictsByDivision"
 	LocationService_GetUpazilasByDistrict_FullMethodName  = "/proto.LocationService/GetUpazilasByDistrict"
+	LocationService_GetUpazilaById_FullMethodName         = "/proto.LocationService/GetUpazilaById"
 )
 
 // LocationServiceClient is the client API for LocationService service.
@@ -34,6 +35,7 @@ type LocationServiceClient interface {
 	GetDivisions(ctx context.Context, in *GetDivisionsRequest, opts ...grpc.CallOption) (*GetDivisionsResponse, error)
 	GetDistrictsByDivision(ctx context.Context, in *GetDistrictsByDivisionRequest, opts ...grpc.CallOption) (*GetDistrictsByDivisionResponse, error)
 	GetUpazilasByDistrict(ctx context.Context, in *GetUpazilasByDistrictRequest, opts ...grpc.CallOption) (*GetUpazilasByDistrictResponse, error)
+	GetUpazilaById(ctx context.Context, in *GetUpazilaByIdRequest, opts ...grpc.CallOption) (*GetUpazilaByIdResponse, error)
 }
 
 type locationServiceClient struct {
@@ -74,6 +76,16 @@ func (c *locationServiceClient) GetUpazilasByDistrict(ctx context.Context, in *G
 	return out, nil
 }
 
+func (c *locationServiceClient) GetUpazilaById(ctx context.Context, in *GetUpazilaByIdRequest, opts ...grpc.CallOption) (*GetUpazilaByIdResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetUpazilaByIdResponse)
+	err := c.cc.Invoke(ctx, LocationService_GetUpazilaById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // LocationServiceServer is the server API for LocationService service.
 // All implementations must embed UnimplementedLocationServiceServer
 // for forward compatibility.
@@ -81,6 +93,7 @@ type LocationServiceServer interface {
 	GetDivisions(context.Context, *GetDivisionsRequest) (*GetDivisionsResponse, error)
 	GetDistrictsByDivision(context.Context, *GetDistrictsByDivisionRequest) (*GetDistrictsByDivisionResponse, error)
 	GetUpazilasByDistrict(context.Context, *GetUpazilasByDistrictRequest) (*GetUpazilasByDistrictResponse, error)
+	GetUpazilaById(context.Context, *GetUpazilaByIdRequest) (*GetUpazilaByIdResponse, error)
 	mustEmbedUnimplementedLocationServiceServer()
 }
 
@@ -99,6 +112,9 @@ func (UnimplementedLocationServiceServer) GetDistrictsByDivision(context.Context
 }
 func (UnimplementedLocationServiceServer) GetUpazilasByDistrict(context.Context, *GetUpazilasByDistrictRequest) (*GetUpazilasByDistrictResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUpazilasByDistrict not implemented")
+}
+func (UnimplementedLocationServiceServer) GetUpazilaById(context.Context, *GetUpazilaByIdRequest) (*GetUpazilaByIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUpazilaById not implemented")
 }
 func (UnimplementedLocationServiceServer) mustEmbedUnimplementedLocationServiceServer() {}
 func (UnimplementedLocationServiceServer) testEmbeddedByValue()                         {}
@@ -175,6 +191,24 @@ func _LocationService_GetUpazilasByDistrict_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _LocationService_GetUpazilaById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUpazilaByIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LocationServiceServer).GetUpazilaById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: LocationService_GetUpazilaById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LocationServiceServer).GetUpazilaById(ctx, req.(*GetUpazilaByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // LocationService_ServiceDesc is the grpc.ServiceDesc for LocationService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -193,6 +227,10 @@ var LocationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetUpazilasByDistrict",
 			Handler:    _LocationService_GetUpazilasByDistrict_Handler,
+		},
+		{
+			MethodName: "GetUpazilaById",
+			Handler:    _LocationService_GetUpazilaById_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

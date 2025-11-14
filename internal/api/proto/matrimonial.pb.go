@@ -392,6 +392,7 @@ func (x *GetDistrictsByDivisionResponse) GetDistricts() []*District {
 type GetUpazilasByDistrictRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	DistrictId    int64                  `protobuf:"varint,1,opt,name=district_id,json=districtId,proto3" json:"district_id,omitempty"`
+	Search        string                 `protobuf:"bytes,2,opt,name=search,proto3" json:"search,omitempty"` // Optional: filter by name
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -431,6 +432,13 @@ func (x *GetUpazilasByDistrictRequest) GetDistrictId() int64 {
 		return x.DistrictId
 	}
 	return 0
+}
+
+func (x *GetUpazilasByDistrictRequest) GetSearch() string {
+	if x != nil {
+		return x.Search
+	}
+	return ""
 }
 
 type GetUpazilasByDistrictResponse struct {
@@ -477,6 +485,94 @@ func (x *GetUpazilasByDistrictResponse) GetUpazilas() []*Upazila {
 	return nil
 }
 
+type GetUpazilaByIdRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UpazilaId     int64                  `protobuf:"varint,1,opt,name=upazila_id,json=upazilaId,proto3" json:"upazila_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetUpazilaByIdRequest) Reset() {
+	*x = GetUpazilaByIdRequest{}
+	mi := &file_matrimonial_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetUpazilaByIdRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetUpazilaByIdRequest) ProtoMessage() {}
+
+func (x *GetUpazilaByIdRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_matrimonial_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetUpazilaByIdRequest.ProtoReflect.Descriptor instead.
+func (*GetUpazilaByIdRequest) Descriptor() ([]byte, []int) {
+	return file_matrimonial_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *GetUpazilaByIdRequest) GetUpazilaId() int64 {
+	if x != nil {
+		return x.UpazilaId
+	}
+	return 0
+}
+
+type GetUpazilaByIdResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Upazila       *Upazila               `protobuf:"bytes,1,opt,name=upazila,proto3" json:"upazila,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetUpazilaByIdResponse) Reset() {
+	*x = GetUpazilaByIdResponse{}
+	mi := &file_matrimonial_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetUpazilaByIdResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetUpazilaByIdResponse) ProtoMessage() {}
+
+func (x *GetUpazilaByIdResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_matrimonial_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetUpazilaByIdResponse.ProtoReflect.Descriptor instead.
+func (*GetUpazilaByIdResponse) Descriptor() ([]byte, []int) {
+	return file_matrimonial_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *GetUpazilaByIdResponse) GetUpazila() *Upazila {
+	if x != nil {
+		return x.Upazila
+	}
+	return nil
+}
+
 type Qualification struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -490,7 +586,7 @@ type Qualification struct {
 
 func (x *Qualification) Reset() {
 	*x = Qualification{}
-	mi := &file_matrimonial_proto_msgTypes[9]
+	mi := &file_matrimonial_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -502,7 +598,7 @@ func (x *Qualification) String() string {
 func (*Qualification) ProtoMessage() {}
 
 func (x *Qualification) ProtoReflect() protoreflect.Message {
-	mi := &file_matrimonial_proto_msgTypes[9]
+	mi := &file_matrimonial_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -515,7 +611,7 @@ func (x *Qualification) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Qualification.ProtoReflect.Descriptor instead.
 func (*Qualification) Descriptor() ([]byte, []int) {
-	return file_matrimonial_proto_rawDescGZIP(), []int{9}
+	return file_matrimonial_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *Qualification) GetId() int64 {
@@ -561,7 +657,7 @@ type GetQualificationsRequest struct {
 
 func (x *GetQualificationsRequest) Reset() {
 	*x = GetQualificationsRequest{}
-	mi := &file_matrimonial_proto_msgTypes[10]
+	mi := &file_matrimonial_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -573,7 +669,7 @@ func (x *GetQualificationsRequest) String() string {
 func (*GetQualificationsRequest) ProtoMessage() {}
 
 func (x *GetQualificationsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_matrimonial_proto_msgTypes[10]
+	mi := &file_matrimonial_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -586,7 +682,7 @@ func (x *GetQualificationsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetQualificationsRequest.ProtoReflect.Descriptor instead.
 func (*GetQualificationsRequest) Descriptor() ([]byte, []int) {
-	return file_matrimonial_proto_rawDescGZIP(), []int{10}
+	return file_matrimonial_proto_rawDescGZIP(), []int{12}
 }
 
 type GetQualificationsResponse struct {
@@ -598,7 +694,7 @@ type GetQualificationsResponse struct {
 
 func (x *GetQualificationsResponse) Reset() {
 	*x = GetQualificationsResponse{}
-	mi := &file_matrimonial_proto_msgTypes[11]
+	mi := &file_matrimonial_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -610,7 +706,7 @@ func (x *GetQualificationsResponse) String() string {
 func (*GetQualificationsResponse) ProtoMessage() {}
 
 func (x *GetQualificationsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_matrimonial_proto_msgTypes[11]
+	mi := &file_matrimonial_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -623,7 +719,7 @@ func (x *GetQualificationsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetQualificationsResponse.ProtoReflect.Descriptor instead.
 func (*GetQualificationsResponse) Descriptor() ([]byte, []int) {
-	return file_matrimonial_proto_rawDescGZIP(), []int{11}
+	return file_matrimonial_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *GetQualificationsResponse) GetQualifications() []*Qualification {
@@ -643,7 +739,7 @@ type StaticOption struct {
 
 func (x *StaticOption) Reset() {
 	*x = StaticOption{}
-	mi := &file_matrimonial_proto_msgTypes[12]
+	mi := &file_matrimonial_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -655,7 +751,7 @@ func (x *StaticOption) String() string {
 func (*StaticOption) ProtoMessage() {}
 
 func (x *StaticOption) ProtoReflect() protoreflect.Message {
-	mi := &file_matrimonial_proto_msgTypes[12]
+	mi := &file_matrimonial_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -668,7 +764,7 @@ func (x *StaticOption) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StaticOption.ProtoReflect.Descriptor instead.
 func (*StaticOption) Descriptor() ([]byte, []int) {
-	return file_matrimonial_proto_rawDescGZIP(), []int{12}
+	return file_matrimonial_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *StaticOption) GetId() int64 {
@@ -693,7 +789,7 @@ type GetReligionsRequest struct {
 
 func (x *GetReligionsRequest) Reset() {
 	*x = GetReligionsRequest{}
-	mi := &file_matrimonial_proto_msgTypes[13]
+	mi := &file_matrimonial_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -705,7 +801,7 @@ func (x *GetReligionsRequest) String() string {
 func (*GetReligionsRequest) ProtoMessage() {}
 
 func (x *GetReligionsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_matrimonial_proto_msgTypes[13]
+	mi := &file_matrimonial_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -718,7 +814,7 @@ func (x *GetReligionsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetReligionsRequest.ProtoReflect.Descriptor instead.
 func (*GetReligionsRequest) Descriptor() ([]byte, []int) {
-	return file_matrimonial_proto_rawDescGZIP(), []int{13}
+	return file_matrimonial_proto_rawDescGZIP(), []int{15}
 }
 
 type GetReligionsResponse struct {
@@ -730,7 +826,7 @@ type GetReligionsResponse struct {
 
 func (x *GetReligionsResponse) Reset() {
 	*x = GetReligionsResponse{}
-	mi := &file_matrimonial_proto_msgTypes[14]
+	mi := &file_matrimonial_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -742,7 +838,7 @@ func (x *GetReligionsResponse) String() string {
 func (*GetReligionsResponse) ProtoMessage() {}
 
 func (x *GetReligionsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_matrimonial_proto_msgTypes[14]
+	mi := &file_matrimonial_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -755,7 +851,7 @@ func (x *GetReligionsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetReligionsResponse.ProtoReflect.Descriptor instead.
 func (*GetReligionsResponse) Descriptor() ([]byte, []int) {
-	return file_matrimonial_proto_rawDescGZIP(), []int{14}
+	return file_matrimonial_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *GetReligionsResponse) GetReligions() []*StaticOption {
@@ -773,7 +869,7 @@ type GetProfessionsRequest struct {
 
 func (x *GetProfessionsRequest) Reset() {
 	*x = GetProfessionsRequest{}
-	mi := &file_matrimonial_proto_msgTypes[15]
+	mi := &file_matrimonial_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -785,7 +881,7 @@ func (x *GetProfessionsRequest) String() string {
 func (*GetProfessionsRequest) ProtoMessage() {}
 
 func (x *GetProfessionsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_matrimonial_proto_msgTypes[15]
+	mi := &file_matrimonial_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -798,7 +894,7 @@ func (x *GetProfessionsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetProfessionsRequest.ProtoReflect.Descriptor instead.
 func (*GetProfessionsRequest) Descriptor() ([]byte, []int) {
-	return file_matrimonial_proto_rawDescGZIP(), []int{15}
+	return file_matrimonial_proto_rawDescGZIP(), []int{17}
 }
 
 type GetProfessionsResponse struct {
@@ -810,7 +906,7 @@ type GetProfessionsResponse struct {
 
 func (x *GetProfessionsResponse) Reset() {
 	*x = GetProfessionsResponse{}
-	mi := &file_matrimonial_proto_msgTypes[16]
+	mi := &file_matrimonial_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -822,7 +918,7 @@ func (x *GetProfessionsResponse) String() string {
 func (*GetProfessionsResponse) ProtoMessage() {}
 
 func (x *GetProfessionsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_matrimonial_proto_msgTypes[16]
+	mi := &file_matrimonial_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -835,7 +931,7 @@ func (x *GetProfessionsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetProfessionsResponse.ProtoReflect.Descriptor instead.
 func (*GetProfessionsResponse) Descriptor() ([]byte, []int) {
-	return file_matrimonial_proto_rawDescGZIP(), []int{16}
+	return file_matrimonial_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *GetProfessionsResponse) GetProfessions() []*StaticOption {
@@ -853,7 +949,7 @@ type GetMaritalStatusesRequest struct {
 
 func (x *GetMaritalStatusesRequest) Reset() {
 	*x = GetMaritalStatusesRequest{}
-	mi := &file_matrimonial_proto_msgTypes[17]
+	mi := &file_matrimonial_proto_msgTypes[19]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -865,7 +961,7 @@ func (x *GetMaritalStatusesRequest) String() string {
 func (*GetMaritalStatusesRequest) ProtoMessage() {}
 
 func (x *GetMaritalStatusesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_matrimonial_proto_msgTypes[17]
+	mi := &file_matrimonial_proto_msgTypes[19]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -878,7 +974,7 @@ func (x *GetMaritalStatusesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetMaritalStatusesRequest.ProtoReflect.Descriptor instead.
 func (*GetMaritalStatusesRequest) Descriptor() ([]byte, []int) {
-	return file_matrimonial_proto_rawDescGZIP(), []int{17}
+	return file_matrimonial_proto_rawDescGZIP(), []int{19}
 }
 
 type GetMaritalStatusesResponse struct {
@@ -890,7 +986,7 @@ type GetMaritalStatusesResponse struct {
 
 func (x *GetMaritalStatusesResponse) Reset() {
 	*x = GetMaritalStatusesResponse{}
-	mi := &file_matrimonial_proto_msgTypes[18]
+	mi := &file_matrimonial_proto_msgTypes[20]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -902,7 +998,7 @@ func (x *GetMaritalStatusesResponse) String() string {
 func (*GetMaritalStatusesResponse) ProtoMessage() {}
 
 func (x *GetMaritalStatusesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_matrimonial_proto_msgTypes[18]
+	mi := &file_matrimonial_proto_msgTypes[20]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -915,7 +1011,7 @@ func (x *GetMaritalStatusesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetMaritalStatusesResponse.ProtoReflect.Descriptor instead.
 func (*GetMaritalStatusesResponse) Descriptor() ([]byte, []int) {
-	return file_matrimonial_proto_rawDescGZIP(), []int{18}
+	return file_matrimonial_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *GetMaritalStatusesResponse) GetMaritalStatuses() []*StaticOption {
@@ -953,12 +1049,18 @@ const file_matrimonial_proto_rawDesc = "" +
 	"\vdivision_id\x18\x01 \x01(\x03R\n" +
 	"divisionId\"O\n" +
 	"\x1eGetDistrictsByDivisionResponse\x12-\n" +
-	"\tdistricts\x18\x01 \x03(\v2\x0f.proto.DistrictR\tdistricts\"?\n" +
+	"\tdistricts\x18\x01 \x03(\v2\x0f.proto.DistrictR\tdistricts\"W\n" +
 	"\x1cGetUpazilasByDistrictRequest\x12\x1f\n" +
 	"\vdistrict_id\x18\x01 \x01(\x03R\n" +
-	"districtId\"K\n" +
+	"districtId\x12\x16\n" +
+	"\x06search\x18\x02 \x01(\tR\x06search\"K\n" +
 	"\x1dGetUpazilasByDistrictResponse\x12*\n" +
-	"\bupazilas\x18\x01 \x03(\v2\x0e.proto.UpazilaR\bupazilas\"\x8c\x01\n" +
+	"\bupazilas\x18\x01 \x03(\v2\x0e.proto.UpazilaR\bupazilas\"6\n" +
+	"\x15GetUpazilaByIdRequest\x12\x1d\n" +
+	"\n" +
+	"upazila_id\x18\x01 \x01(\x03R\tupazilaId\"B\n" +
+	"\x16GetUpazilaByIdResponse\x12(\n" +
+	"\aupazila\x18\x01 \x01(\v2\x0e.proto.UpazilaR\aupazila\"\x8c\x01\n" +
 	"\rQualification\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x1f\n" +
@@ -980,11 +1082,12 @@ const file_matrimonial_proto_rawDesc = "" +
 	"\vprofessions\x18\x01 \x03(\v2\x13.proto.StaticOptionR\vprofessions\"\x1b\n" +
 	"\x19GetMaritalStatusesRequest\"\\\n" +
 	"\x1aGetMaritalStatusesResponse\x12>\n" +
-	"\x10marital_statuses\x18\x01 \x03(\v2\x13.proto.StaticOptionR\x0fmaritalStatuses2\xc5\x03\n" +
+	"\x10marital_statuses\x18\x01 \x03(\v2\x13.proto.StaticOptionR\x0fmaritalStatuses2\xc5\x04\n" +
 	"\x0fLocationService\x12l\n" +
 	"\fGetDivisions\x12\x1a.proto.GetDivisionsRequest\x1a\x1b.proto.GetDivisionsResponse\"#\x82\xd3\xe4\x93\x02\x1d\x12\x1b/api/v1/locations/divisions\x12\xa2\x01\n" +
 	"\x16GetDistrictsByDivision\x12$.proto.GetDistrictsByDivisionRequest\x1a%.proto.GetDistrictsByDivisionResponse\";\x82\xd3\xe4\x93\x025\x123/api/v1/locations/divisions/{division_id}/districts\x12\x9e\x01\n" +
-	"\x15GetUpazilasByDistrict\x12#.proto.GetUpazilasByDistrictRequest\x1a$.proto.GetUpazilasByDistrictResponse\":\x82\xd3\xe4\x93\x024\x122/api/v1/locations/districts/{district_id}/upazilas2\x95\x01\n" +
+	"\x15GetUpazilasByDistrict\x12#.proto.GetUpazilasByDistrictRequest\x1a$.proto.GetUpazilasByDistrictResponse\":\x82\xd3\xe4\x93\x024\x122/api/v1/locations/districts/{district_id}/upazilas\x12~\n" +
+	"\x0eGetUpazilaById\x12\x1c.proto.GetUpazilaByIdRequest\x1a\x1d.proto.GetUpazilaByIdResponse\"/\x82\xd3\xe4\x93\x02)\x12'/api/v1/locations/upazilas/{upazila_id}2\x95\x01\n" +
 	"\x10EducationService\x12\x80\x01\n" +
 	"\x11GetQualifications\x12\x1f.proto.GetQualificationsRequest\x1a .proto.GetQualificationsResponse\"(\x82\xd3\xe4\x93\x02\"\x12 /api/v1/education/qualifications2\xf6\x02\n" +
 	"\x11StaticDataService\x12i\n" +
@@ -1004,7 +1107,7 @@ func file_matrimonial_proto_rawDescGZIP() []byte {
 	return file_matrimonial_proto_rawDescData
 }
 
-var file_matrimonial_proto_msgTypes = make([]protoimpl.MessageInfo, 19)
+var file_matrimonial_proto_msgTypes = make([]protoimpl.MessageInfo, 21)
 var file_matrimonial_proto_goTypes = []any{
 	(*Division)(nil),                       // 0: proto.Division
 	(*District)(nil),                       // 1: proto.District
@@ -1015,44 +1118,49 @@ var file_matrimonial_proto_goTypes = []any{
 	(*GetDistrictsByDivisionResponse)(nil), // 6: proto.GetDistrictsByDivisionResponse
 	(*GetUpazilasByDistrictRequest)(nil),   // 7: proto.GetUpazilasByDistrictRequest
 	(*GetUpazilasByDistrictResponse)(nil),  // 8: proto.GetUpazilasByDistrictResponse
-	(*Qualification)(nil),                  // 9: proto.Qualification
-	(*GetQualificationsRequest)(nil),       // 10: proto.GetQualificationsRequest
-	(*GetQualificationsResponse)(nil),      // 11: proto.GetQualificationsResponse
-	(*StaticOption)(nil),                   // 12: proto.StaticOption
-	(*GetReligionsRequest)(nil),            // 13: proto.GetReligionsRequest
-	(*GetReligionsResponse)(nil),           // 14: proto.GetReligionsResponse
-	(*GetProfessionsRequest)(nil),          // 15: proto.GetProfessionsRequest
-	(*GetProfessionsResponse)(nil),         // 16: proto.GetProfessionsResponse
-	(*GetMaritalStatusesRequest)(nil),      // 17: proto.GetMaritalStatusesRequest
-	(*GetMaritalStatusesResponse)(nil),     // 18: proto.GetMaritalStatusesResponse
+	(*GetUpazilaByIdRequest)(nil),          // 9: proto.GetUpazilaByIdRequest
+	(*GetUpazilaByIdResponse)(nil),         // 10: proto.GetUpazilaByIdResponse
+	(*Qualification)(nil),                  // 11: proto.Qualification
+	(*GetQualificationsRequest)(nil),       // 12: proto.GetQualificationsRequest
+	(*GetQualificationsResponse)(nil),      // 13: proto.GetQualificationsResponse
+	(*StaticOption)(nil),                   // 14: proto.StaticOption
+	(*GetReligionsRequest)(nil),            // 15: proto.GetReligionsRequest
+	(*GetReligionsResponse)(nil),           // 16: proto.GetReligionsResponse
+	(*GetProfessionsRequest)(nil),          // 17: proto.GetProfessionsRequest
+	(*GetProfessionsResponse)(nil),         // 18: proto.GetProfessionsResponse
+	(*GetMaritalStatusesRequest)(nil),      // 19: proto.GetMaritalStatusesRequest
+	(*GetMaritalStatusesResponse)(nil),     // 20: proto.GetMaritalStatusesResponse
 }
 var file_matrimonial_proto_depIdxs = []int32{
 	0,  // 0: proto.GetDivisionsResponse.divisions:type_name -> proto.Division
 	1,  // 1: proto.GetDistrictsByDivisionResponse.districts:type_name -> proto.District
 	2,  // 2: proto.GetUpazilasByDistrictResponse.upazilas:type_name -> proto.Upazila
-	9,  // 3: proto.GetQualificationsResponse.qualifications:type_name -> proto.Qualification
-	12, // 4: proto.GetReligionsResponse.religions:type_name -> proto.StaticOption
-	12, // 5: proto.GetProfessionsResponse.professions:type_name -> proto.StaticOption
-	12, // 6: proto.GetMaritalStatusesResponse.marital_statuses:type_name -> proto.StaticOption
-	3,  // 7: proto.LocationService.GetDivisions:input_type -> proto.GetDivisionsRequest
-	5,  // 8: proto.LocationService.GetDistrictsByDivision:input_type -> proto.GetDistrictsByDivisionRequest
-	7,  // 9: proto.LocationService.GetUpazilasByDistrict:input_type -> proto.GetUpazilasByDistrictRequest
-	10, // 10: proto.EducationService.GetQualifications:input_type -> proto.GetQualificationsRequest
-	13, // 11: proto.StaticDataService.GetReligions:input_type -> proto.GetReligionsRequest
-	15, // 12: proto.StaticDataService.GetProfessions:input_type -> proto.GetProfessionsRequest
-	17, // 13: proto.StaticDataService.GetMaritalStatuses:input_type -> proto.GetMaritalStatusesRequest
-	4,  // 14: proto.LocationService.GetDivisions:output_type -> proto.GetDivisionsResponse
-	6,  // 15: proto.LocationService.GetDistrictsByDivision:output_type -> proto.GetDistrictsByDivisionResponse
-	8,  // 16: proto.LocationService.GetUpazilasByDistrict:output_type -> proto.GetUpazilasByDistrictResponse
-	11, // 17: proto.EducationService.GetQualifications:output_type -> proto.GetQualificationsResponse
-	14, // 18: proto.StaticDataService.GetReligions:output_type -> proto.GetReligionsResponse
-	16, // 19: proto.StaticDataService.GetProfessions:output_type -> proto.GetProfessionsResponse
-	18, // 20: proto.StaticDataService.GetMaritalStatuses:output_type -> proto.GetMaritalStatusesResponse
-	14, // [14:21] is the sub-list for method output_type
-	7,  // [7:14] is the sub-list for method input_type
-	7,  // [7:7] is the sub-list for extension type_name
-	7,  // [7:7] is the sub-list for extension extendee
-	0,  // [0:7] is the sub-list for field type_name
+	2,  // 3: proto.GetUpazilaByIdResponse.upazila:type_name -> proto.Upazila
+	11, // 4: proto.GetQualificationsResponse.qualifications:type_name -> proto.Qualification
+	14, // 5: proto.GetReligionsResponse.religions:type_name -> proto.StaticOption
+	14, // 6: proto.GetProfessionsResponse.professions:type_name -> proto.StaticOption
+	14, // 7: proto.GetMaritalStatusesResponse.marital_statuses:type_name -> proto.StaticOption
+	3,  // 8: proto.LocationService.GetDivisions:input_type -> proto.GetDivisionsRequest
+	5,  // 9: proto.LocationService.GetDistrictsByDivision:input_type -> proto.GetDistrictsByDivisionRequest
+	7,  // 10: proto.LocationService.GetUpazilasByDistrict:input_type -> proto.GetUpazilasByDistrictRequest
+	9,  // 11: proto.LocationService.GetUpazilaById:input_type -> proto.GetUpazilaByIdRequest
+	12, // 12: proto.EducationService.GetQualifications:input_type -> proto.GetQualificationsRequest
+	15, // 13: proto.StaticDataService.GetReligions:input_type -> proto.GetReligionsRequest
+	17, // 14: proto.StaticDataService.GetProfessions:input_type -> proto.GetProfessionsRequest
+	19, // 15: proto.StaticDataService.GetMaritalStatuses:input_type -> proto.GetMaritalStatusesRequest
+	4,  // 16: proto.LocationService.GetDivisions:output_type -> proto.GetDivisionsResponse
+	6,  // 17: proto.LocationService.GetDistrictsByDivision:output_type -> proto.GetDistrictsByDivisionResponse
+	8,  // 18: proto.LocationService.GetUpazilasByDistrict:output_type -> proto.GetUpazilasByDistrictResponse
+	10, // 19: proto.LocationService.GetUpazilaById:output_type -> proto.GetUpazilaByIdResponse
+	13, // 20: proto.EducationService.GetQualifications:output_type -> proto.GetQualificationsResponse
+	16, // 21: proto.StaticDataService.GetReligions:output_type -> proto.GetReligionsResponse
+	18, // 22: proto.StaticDataService.GetProfessions:output_type -> proto.GetProfessionsResponse
+	20, // 23: proto.StaticDataService.GetMaritalStatuses:output_type -> proto.GetMaritalStatusesResponse
+	16, // [16:24] is the sub-list for method output_type
+	8,  // [8:16] is the sub-list for method input_type
+	8,  // [8:8] is the sub-list for extension type_name
+	8,  // [8:8] is the sub-list for extension extendee
+	0,  // [0:8] is the sub-list for field type_name
 }
 
 func init() { file_matrimonial_proto_init() }
@@ -1066,7 +1174,7 @@ func file_matrimonial_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_matrimonial_proto_rawDesc), len(file_matrimonial_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   19,
+			NumMessages:   21,
 			NumExtensions: 0,
 			NumServices:   3,
 		},

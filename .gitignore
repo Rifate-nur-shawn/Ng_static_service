@@ -30,6 +30,26 @@ go.work
 .DS_Store
 Thumbs.db
 
+# Logs
+*.log
+app.log
+server.log
+nohup.out
+
+# Backup files
+*.backup
+*.bak
+*.orig
+
+# Temporary files
+*~
+*.tmp
+*.swp
+*.swo
+
+# Generated data files (optional - remove if you want to commit them)
+location_hierarchy.json
+
 # Binary
 /bin/matrimonial-service
 

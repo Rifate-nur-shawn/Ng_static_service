@@ -95,6 +95,8 @@ func local_request_LocationService_GetDistrictsByDivision_0(ctx context.Context,
 	return msg, metadata, err
 }
 
+var filter_LocationService_GetUpazilasByDistrict_0 = &utilities.DoubleArray{Encoding: map[string]int{"district_id": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
+
 func request_LocationService_GetUpazilasByDistrict_0(ctx context.Context, marshaler runtime.Marshaler, client LocationServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var (
 		protoReq GetUpazilasByDistrictRequest
@@ -111,6 +113,12 @@ func request_LocationService_GetUpazilasByDistrict_0(ctx context.Context, marsha
 	protoReq.DistrictId, err = runtime.Int64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "district_id", err)
+	}
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_LocationService_GetUpazilasByDistrict_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	msg, err := client.GetUpazilasByDistrict(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
@@ -130,7 +138,52 @@ func local_request_LocationService_GetUpazilasByDistrict_0(ctx context.Context, 
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "district_id", err)
 	}
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_LocationService_GetUpazilasByDistrict_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
 	msg, err := server.GetUpazilasByDistrict(ctx, &protoReq)
+	return msg, metadata, err
+}
+
+func request_LocationService_GetUpazilaById_0(ctx context.Context, marshaler runtime.Marshaler, client LocationServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq GetUpazilaByIdRequest
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if req.Body != nil {
+		_, _ = io.Copy(io.Discard, req.Body)
+	}
+	val, ok := pathParams["upazila_id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "upazila_id")
+	}
+	protoReq.UpazilaId, err = runtime.Int64(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "upazila_id", err)
+	}
+	msg, err := client.GetUpazilaById(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+}
+
+func local_request_LocationService_GetUpazilaById_0(ctx context.Context, marshaler runtime.Marshaler, server LocationServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq GetUpazilaByIdRequest
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	val, ok := pathParams["upazila_id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "upazila_id")
+	}
+	protoReq.UpazilaId, err = runtime.Int64(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "upazila_id", err)
+	}
+	msg, err := server.GetUpazilaById(ctx, &protoReq)
 	return msg, metadata, err
 }
 
@@ -283,6 +336,26 @@ func RegisterLocationServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 			return
 		}
 		forward_LocationService_GetUpazilasByDistrict_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
+	mux.Handle(http.MethodGet, pattern_LocationService_GetUpazilaById_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/proto.LocationService/GetUpazilaById", runtime.WithHTTPPathPattern("/api/v1/locations/upazilas/{upazila_id}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_LocationService_GetUpazilaById_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_LocationService_GetUpazilaById_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
 
 	return nil
@@ -475,6 +548,23 @@ func RegisterLocationServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		}
 		forward_LocationService_GetUpazilasByDistrict_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
+	mux.Handle(http.MethodGet, pattern_LocationService_GetUpazilaById_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/proto.LocationService/GetUpazilaById", runtime.WithHTTPPathPattern("/api/v1/locations/upazilas/{upazila_id}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_LocationService_GetUpazilaById_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_LocationService_GetUpazilaById_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
 	return nil
 }
 
@@ -482,12 +572,14 @@ var (
 	pattern_LocationService_GetDivisions_0           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "locations", "divisions"}, ""))
 	pattern_LocationService_GetDistrictsByDivision_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"api", "v1", "locations", "divisions", "division_id", "districts"}, ""))
 	pattern_LocationService_GetUpazilasByDistrict_0  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"api", "v1", "locations", "districts", "district_id", "upazilas"}, ""))
+	pattern_LocationService_GetUpazilaById_0         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v1", "locations", "upazilas", "upazila_id"}, ""))
 )
 
 var (
 	forward_LocationService_GetDivisions_0           = runtime.ForwardResponseMessage
 	forward_LocationService_GetDistrictsByDivision_0 = runtime.ForwardResponseMessage
 	forward_LocationService_GetUpazilasByDistrict_0  = runtime.ForwardResponseMessage
+	forward_LocationService_GetUpazilaById_0         = runtime.ForwardResponseMessage
 )
 
 // RegisterEducationServiceHandlerFromEndpoint is same as RegisterEducationServiceHandler but
