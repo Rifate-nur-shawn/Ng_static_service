@@ -1,0 +1,12 @@
+2025/11/15 02:35:05 Database connection established successfully.
+2025/11/15 02:35:05 Redis connection established successfully.
+2025/11/15 02:35:05 🌐 Starting HTTP REST API server on :8080
+2025/11/15 02:35:05 📝 API Documentation:
+2025/11/15 02:35:05    Divisions:         GET http://localhost:8080/api/v1/locations/divisions
+2025/11/15 02:35:05    Districts:         GET http://localhost:8080/api/v1/locations/divisions/{division_id}/districts
+2025/11/15 02:35:05    Upazilas:          GET http://localhost:8080/api/v1/locations/districts/{district_id}/upazilas
+2025/11/15 02:35:05    Qualifications:    GET http://localhost:8080/api/v1/education/qualifications
+2025/11/15 02:35:05    Religions:         GET http://localhost:8080/api/v1/static/religions
+2025/11/15 02:35:05    Professions:       GET http://localhost:8080/api/v1/static/professions
+2025/11/15 02:35:05    Marital Statuses:  GET http://localhost:8080/api/v1/static/marital-statuses
+2025/11/15 02:35:05 🚀 Starting gRPC server on :50051

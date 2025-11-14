@@ -19,6 +19,7 @@ CREATE TABLE "upazilas" (
   "id" bigserial PRIMARY KEY,
   "district_id" bigint NOT NULL REFERENCES "districts"("id") ON DELETE CASCADE,
   "name_en" varchar(100) NOT NULL,
+  "name_bn" varchar(100),
   -- Add a unique constraint on (district_id, name_en) to prevent duplicate upazilas in a district
   UNIQUE("district_id", "name_en")
 );
@@ -81,8 +82,8 @@ CREATE TABLE "biodata" (
   "id" bigserial PRIMARY KEY,
   "user_id" bigint NOT NULL UNIQUE, -- Link to your user auth service
   "full_name" varchar(255) NOT NULL,
-  "created_at" timestamz NOT NULL DEFAULT (now()),
-  "updated_at" timestamz NOT NULL DEFAULT (now()),
+  "created_at" timestamptz NOT NULL DEFAULT (now()),
+  "updated_at" timestamptz NOT NULL DEFAULT (now()),
   
   -- Relational links to static data
   "current_district_id" bigint REFERENCES "districts"("id"),
