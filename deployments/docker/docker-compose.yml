@@ -1,0 +1,58 @@
+# Local development environment
+version: "3.8"
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: matrimonial_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: matrimonial_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ../../internal/infrastructure/database/migrations:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: matrimonial_redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Matrimonial Service
+  app:
+    build:
+      context: ../..
+      dockerfile: deployments/docker/Dockerfile
+    container_name: matrimonial_service
+    ports:
+      - "50051:50051" # gRPC
+      - "8080:8080" # REST API
+    environment:
+      DB_URL: "postgresql://postgres:password@postgres:5432/matrimonial_db?sslmode=disable"
+      REDIS_ADDR: "redis:6379"
+      SERVER_GRPC_PORT: ":50051"
+      SERVER_HTTP_PORT: ":8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

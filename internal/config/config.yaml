@@ -1,0 +1,14 @@
+# Configuration file
+server:
+  grpc_port: ":50051"
+  http_port: ":8080"
+
+db:
+  # Use environment variable DB_URL for production
+  url: "postgresql://postgres:password@localhost:5432/matrimonial_db?sslmode=disable"
+
+redis:
+  # Use environment variable REDIS_ADDR, REDIS_PASSWORD for production
+  addr: "localhost:6379"
+  password: ""
+  db: 0

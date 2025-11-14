@@ -1,0 +1,130 @@
+{
+  "info": {
+    "name": "Matrimonial Service API",
+    "_postman_id": "matrimonial-service-api",
+    "description": "Complete API collection for Bangladesh Matrimonial Service - Static Data & Location Service",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Location Service",
+      "item": [
+        {
+          "name": "Get All Divisions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/locations/divisions",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "locations", "divisions"]
+            },
+            "description": "Get all 8 divisions of Bangladesh"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Districts by Division",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/locations/divisions/3/districts",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "locations", "divisions", "3", "districts"]
+            },
+            "description": "Get all districts for a specific division (e.g., division_id=3 for Dhaka)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Upazilas by District",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/locations/districts/47/upazilas",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "locations", "districts", "47", "upazilas"]
+            },
+            "description": "Get all upazilas for a specific district"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Education Service",
+      "item": [
+        {
+          "name": "Get All Qualifications",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/education/qualifications",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "education", "qualifications"]
+            },
+            "description": "Get all education qualifications (SSC, HSC, BSc, MSc, etc.) across all streams (General, Madrasah, Technical)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Static Data Service",
+      "item": [
+        {
+          "name": "Get Religions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/static/religions",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "static", "religions"]
+            },
+            "description": "Get all religions (Islam, Hinduism, Christianity, Buddhism, etc.)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Professions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/static/professions",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "static", "professions"]
+            },
+            "description": "Get all professions (Doctor, Engineer, Teacher, Business, etc.)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Marital Statuses",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/static/marital-statuses",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "static", "marital-statuses"]
+            },
+            "description": "Get all marital statuses (Unmarried, Married, Divorced, Widowed, Annulled)"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

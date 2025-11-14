@@ -1,0 +1,50 @@
+# Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+go.work
+
+# Binaries
+/bin/
+/dist/
+
+# Dependencies
+/vendor/
+
+# Environment
+.env
+.env.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Binary
+/bin/matrimonial-service
+
+# Config (if it contains secrets)
+# /internal/config/config.yaml 
+
+# Env
+.env
+
+# IDE - VSCode
+.vscode/
+
+# Third party
+third_party/
+
+# Generated proto files (optional - can commit these)
+# internal/api/proto/*.pb.go
+# internal/api/proto/*.pb.gw.go

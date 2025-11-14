@@ -1,0 +1,136 @@
+// All RPC definitions
+// proto/matrimonial.proto
+syntax = "proto3";
+
+package proto;
+
+import "google/api/annotations.proto";
+
+option go_package = "matrimonial-service/internal/api/proto";
+
+// ----- Location Service -----
+
+message Division {
+  int64 id = 1;
+  string name_en = 2;
+  string name_bn = 3;
+}
+
+message District {
+  int64 id = 1;
+  int64 division_id = 2;
+  string name_en = 3;
+  string name_bn = 4;
+}
+
+message Upazila {
+  int64 id = 1;
+  int64 district_id = 2;
+  string name_en = 3;
+  string name_bn = 4;
+}
+
+message GetDivisionsRequest {}
+
+message GetDivisionsResponse {
+  repeated Division divisions = 1;
+}
+
+message GetDistrictsByDivisionRequest {
+  int64 division_id = 1;
+}
+
+message GetDistrictsByDivisionResponse {
+  repeated District districts = 1;
+}
+
+message GetUpazilasByDistrictRequest {
+  int64 district_id = 1;
+}
+
+message GetUpazilasByDistrictResponse {
+  repeated Upazila upazilas = 1;
+}
+
+service LocationService {
+  rpc GetDivisions(GetDivisionsRequest) returns (GetDivisionsResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/locations/divisions"
+    };
+  }
+  rpc GetDistrictsByDivision(GetDistrictsByDivisionRequest) returns (GetDistrictsByDivisionResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/locations/divisions/{division_id}/districts"
+    };
+  }
+  rpc GetUpazilasByDistrict(GetUpazilasByDistrictRequest) returns (GetUpazilasByDistrictResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/locations/districts/{district_id}/upazilas"
+    };
+  }
+}
+
+
+// ----- Education Service -----
+
+message Qualification {
+  int64 id = 1;
+  string name = 2;
+  string common_name = 3;
+  int64 level_id = 4;
+  int64 stream_id = 5;
+}
+
+message GetQualificationsRequest {}
+
+message GetQualificationsResponse {
+  repeated Qualification qualifications = 1;
+}
+
+service EducationService {
+  rpc GetQualifications(GetQualificationsRequest) returns (GetQualificationsResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/education/qualifications"
+    };
+  }
+}
+
+// ----- Other Static Data Service -----
+
+message StaticOption {
+  int64 id = 1;
+  string name = 2;
+}
+
+message GetReligionsRequest {}
+message GetReligionsResponse {
+  repeated StaticOption religions = 1;
+}
+
+message GetProfessionsRequest {}
+message GetProfessionsResponse {
+  repeated StaticOption professions = 1;
+}
+
+message GetMaritalStatusesRequest {}
+message GetMaritalStatusesResponse {
+  repeated StaticOption marital_statuses = 1;
+}
+
+service StaticDataService {
+  rpc GetReligions(GetReligionsRequest) returns (GetReligionsResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/static/religions"
+    };
+  }
+  rpc GetProfessions(GetProfessionsRequest) returns (GetProfessionsResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/static/professions"
+    };
+  }
+  rpc GetMaritalStatuses(GetMaritalStatusesRequest) returns (GetMaritalStatusesResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/static/marital-statuses"
+    };
+  }
+}
